@@ -59,7 +59,7 @@ CAYENNE_OUT(DISTANCE_PIN)
 	//settings can be tweaked in CayenneVCNL400.h.
 	int distance = proximitySensor.getMillimeters();
 	if (distance != NO_PROXIMITY) {
-		Cayenne.virtualWrite(DISTANCE_PIN, distance, MILLIMETERS, DISTANCE);
+		Cayenne.virtualWrite(DISTANCE_PIN, distance, DISTANCE, MILLIMETERS);
 	}
 }
 

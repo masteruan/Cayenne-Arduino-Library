@@ -16,9 +16,13 @@ should be sent to those pins using virtualWrites. Examples for sending and recei
 Virtual Pin data are under the Basics folder.
 */
 
-//#define CAYENNE_DEBUG         // Uncomment to show debug messages
-#define CAYENNE_PRINT Serial  // Comment this out to disable prints and save space
-#include <CayenneEthernet.h>  // Change this to use a different Ethernet device. See the other Ethernet Communications examples.
+//#define CAYENNE_DEBUG             // Uncomment to show debug messages
+#define CAYENNE_PRINT Serial        // Comment this out to disable prints and save space
+#include <CayenneEthernet.h>        // Comment this out if you uncomment a different Ethernet device below.
+//#include <CayenneEthernetW5500.h> // Uncomment this and comment out CayenneEthernet.h to use an Ethernet 2 shield or other Ethernet W5500 shield.
+                                    // You will need the Ethernet2 library installed. See the ArduinoEthernetW5500 example sketch for more info.
+//#include <CayenneEthernetW5200.h> // Uncomment this and comment out CayenneEthernet.h to use an Ethernet W5200 shield.
+                                    // You will need the EthernetW5200 library installed. See the ArduinoEthernetW5200 example sketch for more info.
 
 // Cayenne authentication token. This should be obtained from the Cayenne Dashboard.
 char token[] = "AuthenticationToken";

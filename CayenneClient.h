@@ -48,10 +48,10 @@ public:
 	*
 	* @param pin  Virtual Pin number
 	* @param value  Value to be sent
-	* @param unit  Measurement unit
 	* @param type  Measurement type
+	* @param unit  Measurement unit
 	*/
-	void virtualWrite(int pin, const char* value, const char* unit, const char* type)
+	void virtualWrite(int pin, const char* value, const char* type, const char* unit)
 	{
 		char mem[BLYNK_MAX_SENDBYTES];
 		sprintf(mem, "%s,%s=%s", type, unit, value);
@@ -63,14 +63,14 @@ public:
 	*
 	* @param pin  Virtual Pin number
 	* @param value  Value to be sent
-	* @param unit  Measurement unit
 	* @param type  Measurement type
+	* @param unit  Measurement unit
 	*/
-	void virtualWrite(int pin, int value, const char* unit, const char* type)
+	void virtualWrite(int pin, int value, const char* type, const char* unit)
 	{
 		char str[2 + 8 * sizeof(value)];
 		itoa(value, str, 10);
-		virtualWrite(pin, str, unit, type);
+		virtualWrite(pin, str, type, unit);
 	}
 
 	/**
@@ -78,14 +78,14 @@ public:
 	*
 	* @param pin  Virtual Pin number
 	* @param value  Value to be sent
-	* @param unit  Measurement unit
 	* @param type  Measurement type
+	* @param unit  Measurement unit
 	*/
-	void virtualWrite(int pin, unsigned int value, const char* unit, const char* type)
+	void virtualWrite(int pin, unsigned int value, const char* type, const char* unit)
 	{
 		char str[1 + 8 * sizeof(value)];
 		utoa(value, str, 10);
-		virtualWrite(pin, str, unit, type);
+		virtualWrite(pin, str, type, unit);
 	}
 
 	/**
@@ -93,14 +93,14 @@ public:
 	*
 	* @param pin  Virtual Pin number
 	* @param value  Value to be sent
-	* @param unit  Measurement unit
 	* @param type  Measurement type
+	* @param unit  Measurement unit
 	*/
-	void virtualWrite(int pin, long value, const char* unit, const char* type)
+	void virtualWrite(int pin, long value, const char* type, const char* unit)
 	{
 		char str[2 + 8 * sizeof(value)];
 		ltoa(value, str, 10);
-		virtualWrite(pin, str, unit, type);
+		virtualWrite(pin, str, type, unit);
 	}
 
 	/**
@@ -108,14 +108,14 @@ public:
 	*
 	* @param pin  Virtual Pin number
 	* @param value  Value to be sent
-	* @param unit  Measurement unit
 	* @param type  Measurement type
+	* @param unit  Measurement unit
 	*/
-	void virtualWrite(int pin, unsigned long value, const char* unit, const char* type)
+	void virtualWrite(int pin, unsigned long value, const char* type, const char* unit)
 	{
 		char str[1 + 8 * sizeof(value)];
 		ultoa(value, str, 10);
-		virtualWrite(pin, str, unit, type);
+		virtualWrite(pin, str, type, unit);
 	}
 
 #if defined(__AVR__) || defined (ARDUINO_ARCH_ARC32)
@@ -125,14 +125,14 @@ public:
 	*
 	* @param pin  Virtual Pin number
 	* @param value  Value to be sent
-	* @param unit  Measurement unit
 	* @param type  Measurement type
+	* @param unit  Measurement unit
 	*/
-	void virtualWrite(int pin, float value, const char* unit, const char* type)
+	void virtualWrite(int pin, float value, const char* type, const char* unit)
 	{
 		char str[33];
 		dtostrf(value, 5, 3, str);
-		virtualWrite(pin, str, unit, type);
+		virtualWrite(pin, str, type, unit);
 	}
 
 	/**
@@ -140,14 +140,14 @@ public:
 	*
 	* @param pin  Virtual Pin number
 	* @param value  Value to be sent
-	* @param unit  Measurement unit
 	* @param type  Measurement type
+	* @param unit  Measurement unit
 	*/
-	void virtualWrite(int pin, double value, const char* unit, const char* type)
+	void virtualWrite(int pin, double value, const char* type, const char* unit)
 	{
 		char str[33];
 		dtostrf(value, 5, 3, str);
-		virtualWrite(pin, str, unit, type);
+		virtualWrite(pin, str, type, unit);
 	}
 
 #else
@@ -157,14 +157,14 @@ public:
 	*
 	* @param pin  Virtual Pin number
 	* @param value  Value to be sent
-	* @param unit  Measurement unit
 	* @param type  Measurement type
+	* @param unit  Measurement unit
 	*/
-	void virtualWrite(int pin, float value, const char* unit, const char* type)
+	void virtualWrite(int pin, float value, const char* type, const char* unit)
 	{
 		char str[33];
 		snprintf(str, 33, "%2.3f", value);
-		virtualWrite(pin, str, unit, type);
+		virtualWrite(pin, str, type, unit);
 	}
 
 	/**
@@ -172,14 +172,14 @@ public:
 	*
 	* @param pin  Virtual Pin number
 	* @param value  Value to be sent
-	* @param unit  Measurement unit
 	* @param type  Measurement type
+	* @param unit  Measurement unit
 	*/
-	void virtualWrite(int pin, double value, const char* unit, const char* type)
+	void virtualWrite(int pin, double value, const char* type, const char* unit)
 	{
 		char str[33];
 		snprintf(str, 33, "%2.3f", value);
-		virtualWrite(pin, str, unit, type);
+		virtualWrite(pin, str, type, unit);
 	}
 
 #endif
@@ -211,7 +211,7 @@ public:
 	*/
 	void celsiusWrite(int pin, float value)
 	{
-		virtualWrite(pin, value, CELSIUS, TEMPERATURE);
+		virtualWrite(pin, value, TEMPERATURE, CELSIUS);
 	}
 
 	/**
@@ -222,7 +222,7 @@ public:
 	*/
 	void fahrenheitWrite(int pin, float value)
 	{
-		virtualWrite(pin, value, FAHRENHEIT, TEMPERATURE);
+		virtualWrite(pin, value, TEMPERATURE, FAHRENHEIT);
 	}
 
 	/**
@@ -233,7 +233,7 @@ public:
 	*/
 	void kelvinWrite(int pin, float value)
 	{
-		virtualWrite(pin, value, KELVIN, TEMPERATURE);
+		virtualWrite(pin, value, TEMPERATURE, KELVIN);
 	}
 
 	/**
@@ -244,7 +244,7 @@ public:
 	*/
 	void luxWrite(int pin, float value)
 	{
-		virtualWrite(pin, value, LUX, LUMINOSITY);
+		virtualWrite(pin, value, LUMINOSITY, LUX);
 	}
 
 	/**
@@ -255,7 +255,7 @@ public:
 	*/
 	void pascalWrite(int pin, float value)
 	{
-		virtualWrite(pin, value, PASCAL, BAROMETRIC_PRESSURE);
+		virtualWrite(pin, value, BAROMETRIC_PRESSURE, PASCAL);
 	}
 
 	/**
@@ -266,7 +266,7 @@ public:
 	*/
 	void hectoPascalWrite(int pin, float value)
 	{
-		virtualWrite(pin, value, HECTOPASCAL, BAROMETRIC_PRESSURE);
+		virtualWrite(pin, value, BAROMETRIC_PRESSURE, HECTOPASCAL);
 	}
 
 	/**
@@ -277,7 +277,7 @@ public:
 	*/
 	void relativeHumidityWrite(int pin, float value)
 	{
-		virtualWrite(pin, value, RELATIVE_HUMIDITY, HUMIDITY);
+		virtualWrite(pin, value, HUMIDITY, RELATIVE_HUMIDITY);
 	}
 };
 

@@ -46,5 +46,5 @@ CAYENNE_OUT(VIRTUAL_PIN)
 	// For example, this command writes a temperature in Celsius to the Virtual Pin.
 	Cayenne.celsiusWrite(VIRTUAL_PIN, 25.5);
 	// You can also write data using virtualWrite:
-	//Cayenne.virtualWrite(VIRTUAL_PIN, 25.5, CELSIUS, TEMPERATURE);
+	//Cayenne.virtualWrite(VIRTUAL_PIN, 25.5, TEMPERATURE, CELSIUS);
 }
