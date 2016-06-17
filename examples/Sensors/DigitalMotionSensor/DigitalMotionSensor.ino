@@ -47,13 +47,18 @@ void loop()
 
 int previousState = -1;
 int currentState = -1;
+unsigned long previousMillis = 0;
 
 void checkSensor()
 {
-	// Check the sensor state and send data when it changes.
-	currentState = digitalRead(motionSensorPin);
-	if (currentState != previousState) {
-		Cayenne.virtualWrite(VIRTUAL_PIN, currentState);
-		previousState = currentState;
+	unsigned long currentMillis = millis();
+	// Check sensor data every 250 milliseconds
+	if (currentMillis - previousMillis >= 250) {
+		// Check the sensor state and send data when it changes.
+		currentState = digitalRead(motionSensorPin);
+		if (currentState != previousState) {
+			Cayenne.virtualWrite(VIRTUAL_PIN, currentState);
+			previousState = currentState;
+		}
 	}
 }
