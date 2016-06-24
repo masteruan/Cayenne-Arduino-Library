@@ -121,12 +121,24 @@ bool BlynkProtocol<Transp>::run(bool avail)
 #endif
 
     if (state == DISCONNECTED) {
-        return false;
+#ifdef BLYNK_DEBUG
+		BLYNK_LOG("run returning, disconnected");
+#endif
+		return false;
     }
 
     const bool tconn = conn.connected();
 
-    if (tconn) {
+#ifdef BLYNK_DEBUG
+	static unsigned long lastDebugLog = 0;
+	unsigned long now = millis();
+	if (now - lastDebugLog > 5000UL) {
+		BLYNK_LOG("state %d, tconn %d", state, tconn);
+		lastDebugLog = now;
+	}
+#endif
+	
+	if (tconn) {
         if (avail || conn.available() > 0) {
             //BLYNK_LOG("Available: %d", conn.available());
             //const unsigned long t = micros();
@@ -182,9 +194,15 @@ bool BlynkProtocol<Transp>::run(bool avail)
         } else if (!tconn && (t - lastHeartbeat > 5000UL)) {
             conn.disconnect();
             if (!conn.connect()) {
-                lastHeartbeat = t;
+#ifdef BLYNK_DEBUG
+				BLYNK_LOG("Connect failure");
+#endif
+				lastHeartbeat = t;
                 return false;
             }
+#ifdef BLYNK_DEBUG
+			BLYNK_LOG("Connect success");
+#endif
 
 #ifdef BLYNK_MSG_LIMIT
             deltaCmd = 1000;
