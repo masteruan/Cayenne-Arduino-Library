@@ -32,6 +32,7 @@ Steps:
 #define LUMINOSITY_PIN V2
 
 VCNL4000 proximitySensor;
+bool sensorDetected = true;
 
 // Cayenne authentication token. This should be obtained from the Cayenne Dashboard.
 char token[] = "AuthenticationToken";
@@ -43,7 +44,7 @@ void setup()
 	if (!proximitySensor.begin())
 	{
 		CAYENNE_LOG("No sensor detected");
-		while (1);
+		sensorDetected = false;
 	}
 }
 
@@ -55,16 +56,30 @@ void loop()
 // This function is called when the Cayenne widget requests data for the distance Virtual Pin.
 CAYENNE_OUT(DISTANCE_PIN)
 {
-	//The getMillimeters() function only provides a rough estimate of distance. If greater accuracy is desired
-	//settings can be tweaked in CayenneVCNL400.h.
-	int distance = proximitySensor.getMillimeters();
-	if (distance != NO_PROXIMITY) {
-		Cayenne.virtualWrite(DISTANCE_PIN, distance, DISTANCE, MILLIMETERS);
+	if (sensorDetected)
+	{
+		//The getMillimeters() function only provides a rough estimate of distance. If greater accuracy is desired
+		//settings can be tweaked in CayenneVCNL400.h.
+		int distance = proximitySensor.getMillimeters();
+		if (distance != NO_PROXIMITY) {
+			Cayenne.virtualWrite(DISTANCE_PIN, distance, DISTANCE, MILLIMETERS);
+		}
+	}
+	else
+	{
+		CAYENNE_LOG("No sensor detected");
 	}
 }
 
 // This function is called when the Cayenne widget requests data for the luminosity Virtual Pin.
 CAYENNE_OUT(LUMINOSITY_PIN)
 {
-	Cayenne.luxWrite(LUMINOSITY_PIN, proximitySensor.getLux());
+	if (sensorDetected)
+	{
+		Cayenne.luxWrite(LUMINOSITY_PIN, proximitySensor.getLux());
+	}
+	else
+	{
+		CAYENNE_LOG("No sensor detected");
+	}
 }

@@ -36,6 +36,7 @@ Steps:
 #define TEMPERATURE_PIN V2
 
 Adafruit_BMP085_Unified bmp = Adafruit_BMP085_Unified(10180);
+bool bmpSensorDetected = true;
 
 // Cayenne authentication token. This should be obtained from the Cayenne Dashboard.
 char token[] = "AuthenticationToken";
@@ -47,7 +48,7 @@ void setup()
 	if (!bmp.begin())
 	{
 		CAYENNE_LOG("No BMP sensor detected");
-		while (1);
+		bmpSensorDetected = false;
 	}
 }
 
@@ -59,22 +60,36 @@ void loop()
 // This function is called when the Cayenne widget requests data for the barometer's Virtual Pin.
 CAYENNE_OUT(BAROMETER_PIN)
 {
-	// Send the command to get data.
-	sensors_event_t event;
-	bmp.getEvent(&event);
-
-	if (event.pressure)
+	if (bmpSensorDetected)
 	{
-		// Send the value to Cayenne in hectopascals.
-		Cayenne.hectoPascalWrite(BAROMETER_PIN, event.pressure);
+		// Send the command to get data.
+		sensors_event_t event;
+		bmp.getEvent(&event);
+
+		if (event.pressure)
+		{
+			// Send the value to Cayenne in hectopascals.
+			Cayenne.hectoPascalWrite(BAROMETER_PIN, event.pressure);
+		}
+	}
+	else
+	{
+		CAYENNE_LOG("No BMP sensor detected");
 	}
 }
 
 // This function is called when the Cayenne widget requests data for the temperature's Virtual Pin.
 CAYENNE_OUT(TEMPERATURE_PIN)
 {
-	float temperature;
-	bmp.getTemperature(&temperature);
-	// Send the value to Cayenne in Celsius.
-	Cayenne.celsiusWrite(TEMPERATURE_PIN, temperature);
+	if (bmpSensorDetected)
+	{
+		float temperature;
+		bmp.getTemperature(&temperature);
+		// Send the value to Cayenne in Celsius.
+		Cayenne.celsiusWrite(TEMPERATURE_PIN, temperature);
+	}
+	else
+	{
+		CAYENNE_LOG("No BMP sensor detected");
+	}
 }
