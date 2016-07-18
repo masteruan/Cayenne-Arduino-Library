@@ -52,6 +52,7 @@ public:
         }
 
         IPAddress myip = WiFi.localIP();
+		Base::setLocalIP(myip);
         BLYNK_LOG("My IP: %d.%d.%d.%d", myip[0], myip[1], myip[2], myip[3]);
     }
 

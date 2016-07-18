@@ -61,6 +61,7 @@ public:
         ::delay(1000);
         this->conn.begin(domain, port);
         IPAddress myip = Ethernet.localIP();
+		Base::setLocalIP(myip);
         BLYNK_LOG("My IP: %d.%d.%d.%d", myip[0], myip[1], myip[2], myip[3]);
     }
 
@@ -79,6 +80,7 @@ public:
         ::delay(1000);
         this->conn.begin(domain, port);
         IPAddress myip = Ethernet.localIP();
+		Base::setLocalIP(myip);
         BLYNK_LOG("My IP: %d.%d.%d.%d", myip[0], myip[1], myip[2], myip[3]);
     }
 
@@ -99,6 +101,7 @@ public:
         ::delay(1000);
         this->conn.begin(domain, port);
         IPAddress myip = Ethernet.localIP();
+		Base::setLocalIP(myip);
         BLYNK_LOG("My IP: %d.%d.%d.%d", myip[0], myip[1], myip[2], myip[3]);
     }
 
@@ -117,6 +120,7 @@ public:
         ::delay(1000);
         this->conn.begin(addr, port);
         IPAddress myip = Ethernet.localIP();
+		Base::setLocalIP(myip);
         BLYNK_LOG("My IP: %d.%d.%d.%d", myip[0], myip[1], myip[2], myip[3]);
     }
 
@@ -134,6 +138,7 @@ public:
         ::delay(1000);
         this->conn.begin(addr, port);
         IPAddress myip = Ethernet.localIP();
+		Base::setLocalIP(myip);
         BLYNK_LOG("My IP: %d.%d.%d.%d", myip[0], myip[1], myip[2], myip[3]);
     }
 
@@ -154,6 +159,7 @@ public:
         ::delay(1000);
         this->conn.begin(addr, port);
         IPAddress myip = Ethernet.localIP();
+		Base::setLocalIP(myip);
         BLYNK_LOG("My IP: %d.%d.%d.%d", myip[0], myip[1], myip[2], myip[3]);
     }
 

@@ -44,6 +44,7 @@ public:
 #endif
         , currentMsgId(0)
         , state(CONNECTING)
+		, localIP(INADDR_NONE)
     {}
 
     bool connected() { return state == CONNECTED; }
@@ -88,6 +89,13 @@ public:
 private:
     int readHeader(BlynkHeader& hdr);
     uint16_t getNextMsgId();
+	void sendIP() {
+		if (localIP != INADDR_NONE) {
+			char ip[16] = { 0 };
+			sprintf(ip, "%d.%d.%d.%d", localIP[0], localIP[1], localIP[2], localIP[3]);
+			sendCmd(BLYNK_CMD_IP, 0, ip, strlen(ip));
+		}
+	};
 
 protected:
     void begin(const char* auth) {
@@ -95,6 +103,9 @@ protected:
         this->authkey = auth;
     }
     bool processInput(void);
+	void setLocalIP(IPAddress ip) {
+		this->localIP = ip;
+	};
 
     Transp& conn;
 
@@ -111,6 +122,7 @@ private:
 #endif
     uint16_t currentMsgId;
     BlynkState state;
+	IPAddress localIP;
 };
 
 template <class Transp>
@@ -246,6 +258,7 @@ bool BlynkProtocol<Transp>::processInput(void)
                 lastHeartbeat = lastActivityIn;
                 state = CONNECTED;
                 this->sendInfo();
+				sendIP();			
 #if !defined(BLYNK_NO_YIELD)
                 yield();
 #endif
