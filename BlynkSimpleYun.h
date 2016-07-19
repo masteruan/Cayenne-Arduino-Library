@@ -52,7 +52,8 @@ public:
     {
         BLYNK_LOG("Bridge init...");
         Bridge.begin();
-    	config(auth, domain, port);
+		saveIP();
+		config(auth, domain, port);
     }
 
     void begin(const char* auth,
@@ -61,8 +62,24 @@ public:
     {
         BLYNK_LOG("Bridge init...");
         Bridge.begin();
+		saveIP();
     	config(auth, ip, port);
     }
+
+	void saveIP()
+	{
+		Process p;
+		char localIP[16];
+		p.runShellCommand("ifconfig eth1 | grep \"inet \" | awk -F'[: ]+' '{ print $4 }'");
+		while (p.running());
+		size_t index = 0;
+		while (p.available() && index < 16) {
+			localIP[index] = p.read();
+			index++;
+		}
+		localIP[index] = '\0';
+		Base::setLocalIP(localIP);
+	}
 
 };
 

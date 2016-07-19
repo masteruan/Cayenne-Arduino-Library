@@ -44,8 +44,9 @@ public:
 #endif
         , currentMsgId(0)
         , state(CONNECTING)
-		, localIP(INADDR_NONE)
-    {}
+    {
+		memset(localIP, 0, sizeof(localIP));
+	}
 
     bool connected() { return state == CONNECTED; }
 
@@ -90,10 +91,8 @@ private:
     int readHeader(BlynkHeader& hdr);
     uint16_t getNextMsgId();
 	void sendIP() {
-		if (localIP != INADDR_NONE) {
-			char ip[16] = { 0 };
-			sprintf(ip, "%d.%d.%d.%d", localIP[0], localIP[1], localIP[2], localIP[3]);
-			sendCmd(BLYNK_CMD_IP, 0, ip, strlen(ip));
+		if (strlen(localIP) != 0) {
+			sendCmd(BLYNK_CMD_IP, 0, localIP, strlen(localIP));
 		}
 	};
 
@@ -103,8 +102,15 @@ protected:
         this->authkey = auth;
     }
     bool processInput(void);
-	void setLocalIP(IPAddress ip) {
-		this->localIP = ip;
+
+	void setLocalIP(const uint8_t *address) {
+		if (!(address[0] == 0 && address[1] == 0 && address[2] == 0 && address[3] == 0)) {
+			sprintf(localIP, "%d.%d.%d.%d", address[0], address[1], address[2], address[3]);
+		}
+	};
+
+	void setLocalIP(const char *address) {
+		strcpy(localIP, address);
 	};
 
     Transp& conn;
@@ -122,7 +128,7 @@ private:
 #endif
     uint16_t currentMsgId;
     BlynkState state;
-	IPAddress localIP;
+	char localIP[16];
 };
 
 template <class Transp>
