@@ -110,7 +110,7 @@ protected:
 	};
 
 	void setLocalIP(const char *address) {
-		strcpy(localIP, address);
+		strncpy(localIP, address, sizeof(localIP));
 	};
 
     Transp& conn;
