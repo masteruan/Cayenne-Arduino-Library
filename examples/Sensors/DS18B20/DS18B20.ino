@@ -27,6 +27,8 @@ Steps:
 #define CAYENNE_PRINT Serial  // Comment this out to disable prints and save space
 #include <OneWire.h>
 #include <DallasTemperature.h>
+
+// If you're not using the Ethernet W5100 shield, change this to match your connection type. See Communications examples.
 #include <CayenneEthernet.h>
 
 // Virtual Pin of the DS18B20 widget.

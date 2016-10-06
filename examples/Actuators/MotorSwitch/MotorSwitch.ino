@@ -23,6 +23,8 @@ We use the virtual pin to receive data from the dashboard to enable and disable 
 */
 
 #define CAYENNE_PRINT Serial  // Comment this out to disable prints and save space
+
+// If you're not using the Ethernet W5100 shield, change this to match your connection type. See Communications examples.
 #include <CayenneEthernet.h>
 
 // Virtual Pin of the widget.

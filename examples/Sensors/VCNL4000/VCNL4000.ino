@@ -25,6 +25,8 @@ Steps:
 
 #define CAYENNE_PRINT Serial  // Comment this out to disable prints and save space
 #include <CayenneVCNL4000.h>
+
+// If you're not using the Ethernet W5100 shield, change this to match your connection type. See Communications examples.
 #include <CayenneEthernet.h>
 
 // Virtual Pins of the VCNL4000 widget.

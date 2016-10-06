@@ -20,7 +20,9 @@ For further examples of how to send data to Cayenne see the example sketches und
 */
 
 #define CAYENNE_PRINT Serial   // Comment this out to disable prints and save space
-#include <CayenneEthernet.h>   // Change this to use a different communication device. See Communications examples.
+
+// If you're not using the Ethernet W5100 shield, change this to match your connection type. See Communications examples.
+#include <CayenneEthernet.h>
 
 // Cayenne authentication token. This should be obtained from the Cayenne Dashboard.
 char token[] = "AuthenticationToken";

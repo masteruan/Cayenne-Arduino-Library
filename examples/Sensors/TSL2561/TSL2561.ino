@@ -31,6 +31,8 @@ Code adapted from Adafruit TSL2561 sensorapi example.
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_TSL2561_U.h>
+
+// If you're not using the Ethernet W5100 shield, change this to match your connection type. See Communications examples.
 #include <CayenneEthernet.h>
 
 // Virtual Pin of the TSL2561 widget.

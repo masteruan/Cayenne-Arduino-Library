@@ -29,6 +29,8 @@ Steps:
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BMP085_U.h>
+
+// If you're not using the Ethernet W5100 shield, change this to match your connection type. See Communications examples.
 #include <CayenneEthernet.h>
 
 // Virtual Pins of the BMP180 widget.

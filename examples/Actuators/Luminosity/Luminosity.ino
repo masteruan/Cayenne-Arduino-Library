@@ -23,7 +23,10 @@ Steps:
 
 
 #define CAYENNE_PRINT Serial  // Comment this out to disable prints and save space
+
+// If you're not using the Ethernet W5100 shield, change this to match your connection type. See Communications examples.
 #include <CayenneEthernet.h>
+
 #define LED_VIRTUAL_PIN 1
 #define LED_DIGITAL_PIN 3
 
