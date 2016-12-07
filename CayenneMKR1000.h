@@ -17,8 +17,8 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEAL
 This software uses open source blynk-library - see blynk-library/LICENSE
 */
 
-#ifndef _CAYENNEWIFI101_h
-#define _CAYENNEWIFI101_h
+#ifndef _CAYENNEMKR1000_h
+#define _CAYENNEMKR1000_h
 
 #include "CayenneDefines.h"
 #include "BlynkSimpleMKR1000.h"
