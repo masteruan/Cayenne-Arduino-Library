@@ -60,5 +60,6 @@ void checkSensor()
 			Cayenne.virtualWrite(VIRTUAL_PIN, currentState);
 			previousState = currentState;
 		}
+        previousMillis = currentMillis;
 	}
 }

@@ -23,12 +23,17 @@ Virtual Pin data are under the Basics folder.
 #define CAYENNE_PRINT Serial  // Comment this out to disable prints and save space
 #include <CayenneEthernetW5200.h>
 
+#define W5200_CS  10
+#define SDCARD_CS 4
+
 // Cayenne authentication token. This should be obtained from the Cayenne Dashboard.
 char token[] = "AuthenticationToken";
 
 void setup()
 {
 	Serial.begin(9600);
+	pinMode(SDCARD_CS, OUTPUT);
+	digitalWrite(SDCARD_CS, HIGH); // Deselect the SD card
 	Cayenne.begin(token);
 }
 

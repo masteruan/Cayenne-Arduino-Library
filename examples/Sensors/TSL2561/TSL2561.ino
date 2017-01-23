@@ -52,7 +52,6 @@ void setup()
 	if (!tsl.begin())
 	{
 		CAYENNE_LOG("No TSL2561 detected");
-		while (1);
 	}
 
 	tsl.enableAutoRange(true);
@@ -83,6 +82,6 @@ CAYENNE_OUT(VIRTUAL_PIN)
 	{
 		/* If event.light = 0 lux the sensor is probably saturated
 		and no reliable data could be generated! */
-		CAYENNE_LOG("Sensor overload");
+		CAYENNE_LOG("No sensor data");
 	}
 }
