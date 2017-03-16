@@ -2,7 +2,7 @@
 The MIT License(MIT)
 
 Cayenne Arduino Client Library
-Copyright © 2016 myDevices
+Copyright Â© 2016 myDevices
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files(the "Software"), to deal in the Software without restriction, including without limitation
@@ -35,6 +35,11 @@ public:
 	{
 		Blynk.begin(token, ssid, pass, CAYENNE_DOMAIN, CAYENNE_PORT);
 	}
+	void config(const char* token)
+    	{
+        	Blynk.config(token, CAYENNE_DOMAIN, CAYENNE_PORT);
+    	}
+
 };
 
 CayenneWiFiClient Cayenne;
